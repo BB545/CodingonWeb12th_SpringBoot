@@ -3,6 +3,7 @@ package codingon_kdt.spring_boot_security.controller;
 import codingon_kdt.spring_boot_security.domain.UserEntity;
 import codingon_kdt.spring_boot_security.dto.ResponseDTO;
 import codingon_kdt.spring_boot_security.dto.UserDTO;
+import codingon_kdt.spring_boot_security.security.TokenProvider;
 import codingon_kdt.spring_boot_security.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    // [after] jwt token 적용한 후
+    @Autowired
+    private TokenProvider tokenProvider;
 
     @PostMapping("/signup")
     // ResponseEntity: 사용자에게 좀 더 응답을 편하게 해주고자 사용
@@ -57,9 +62,18 @@ public class UserController {
         UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword());
 
         if (user != null) {
+            // [before]
+            /* final UserDTO responseUserDTO = UserDTO.builder()
+                    .email(user.getEmail())
+                    .id(user.getId())
+                    .build(); */
+
+            // [after] jwt token 적용한 후
+            final String token = tokenProvider.create(user);
             final UserDTO responseUserDTO = UserDTO.builder()
                     .email(user.getEmail())
                     .id(user.getId())
+                    .token(token) // jwt token 추가
                     .build();
 
             return ResponseEntity.ok().body(responseUserDTO);
