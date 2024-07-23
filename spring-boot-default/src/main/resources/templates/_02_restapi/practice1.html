@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>REST API (GET, POST)</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/css/req.css" />
+    <script src="/js/req.js" defer></script>
+</head>
+<body>
+<h1>GET 요청</h1>
+<div class="forms-container">
+    <div class="form-card">
+        <h3>#1. Get Method. practice</h3>
+        <a href="/introduce/홍길동"> /introduce/홍길동 </a>
+        <br />
+    </div>
+
+    <form action="/introduce2" method="GET" class="form-card">
+        <h3>#2. Get Method. practice</h3>
+        <input type="text" name="name" placeholder="이름" /><br />
+        <input type="number" name="age" placeholder="나이" />
+        <br />
+        <button type="submit">Get 전송</button>
+    </form>
+</div>
+
+<!--<h1>POST 요청</h1>-->
+<!--<div class="forms-container">-->
+<!--    <form action="/introduce3" method="POST" class="form-card">-->
+<!--        <h3>#2. Get Method. practice</h3>-->
+<!--        이름 <input type="text" name="name" placeholder="이름" /><br />-->
+<!--        성별-->
+<!--        <input type="radio" name="gender" id="male" value="남자" /> 남자-->
+<!--        <input type="radio" name="gender" id="female" value="여자" /> 여자-->
+<!--        <br />-->
+<!--        생년월일-->
+<!--        <select name="year" id="yearSelect"></select> 년-->
+<!--        <select name="month" id="monthSelect"></select> 월-->
+<!--        <select name="day" id="daySelect"></select> 일-->
+<!--        <br>-->
+<!--        관심사-->
+<!--        <input type="checkbox" name="hobby" value="여행"> 여행-->
+<!--        <input type="checkbox" name="hobby" value="패션"> 패션-->
+<!--        <input type="checkbox" name="hobby" value="음식"> 음식-->
+<!--        <br>-->
+<!--        <button type="submit">Post 전송</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+<!--<h1>동적 폼 POST 요청</h1>-->
+<!--<div class="box">-->
+<!--    <div id="vo-result-container" class="result-container"></div>-->
+<!--    <div class="forms-container">-->
+<!--        <form class="form-card" id="axiosVoPrac1">-->
+<!--            <h3>#1. Axios with VO. practice</h3>-->
+<!--            이름 <input type="text" name="name" placeholder="이름" /><br />-->
+<!--            성별-->
+<!--            <input type="radio" name="gender" id="male" value="남자" /> 남자-->
+<!--            <input type="radio" name="gender" id="female" value="여자" /> 여자-->
+<!--            <br />-->
+<!--            생년월일-->
+<!--            <select name="year" id="yearSelect"></select> 년-->
+<!--            <select name="month" id="monthSelect"></select> 월-->
+<!--            <select name="day" id="daySelect"></select> 일-->
+<!--            <br>-->
+<!--            관심사-->
+<!--            <input type="checkbox" name="hobby" value="여행"> 여행-->
+<!--            <input type="checkbox" name="hobby" value="패션"> 패션-->
+<!--            <input type="checkbox" name="hobby" value="음식"> 음식-->
+<!--            <br>-->
+<!--            <button type="button" onclick="voPrac1()">회원가입</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<h1>CRUD RESTful</h1>
+<div class="box">
+    <div class="forms-container">
+        <form class="form-card" id="crudPrac1">
+            <h3>#2. CRUD RESTful. practice</h3>
+            이름 <input type="text" name="name" placeholder="이름" /><br />
+            아이디 <input type="text" name="id" placeholder="아이디" /><br />
+            비밀번호 <input type="password" name="password" placeholder="비밀번호" /><br />
+            성별
+            <input type="radio" name="gender" id="male" value="남자" /> 남자
+            <input type="radio" name="gender" id="female" value="여자" /> 여자
+            <br />
+            생년월일
+            <select name="year" id="yearSelect"></select> 년
+            <select name="month" id="monthSelect"></select> 월
+            <select name="day" id="daySelect"></select> 일
+            <br>
+            <button type="button" onclick="crudPrac1()">회원가입</button>
+            <button type="button" onclick="crudPrac2()">로그인</button>
+            <button type="button" onclick="crudPrac3()">회원 정보 수정</button>
+            <button type="button" onclick="crudPrac4()">회원 탈퇴</button>
+        </form>
+    </div>
+</div>
+
+<script src="/js/restapi_practice1.js"></script>
+</body>
+</html>

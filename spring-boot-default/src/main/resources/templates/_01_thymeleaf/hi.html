@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!--ver1-->
+    <!--<p th:text="'안녕하세요.' + ${msg}">안녕 반가워</p>-->
+
+    <!--ver2-->
+    <h3>th:text</h3>
+    <p>텍스트 표현</p>
+    <p th:text="'환영합니다! ' + ${hello}"></p>
+
+    <h3>th:utext</h3>
+    <p>HTML 태그를 반영한 텍스트</p>
+    <p th:utext="'환영합니다! ' + ${uText}"></p>
+
+    <h3>th:value</h3>
+    <p>HTML 요소의 value 속성값을 지정할 때 사용</p>
+    <input type="text" th:value="${value}">
+
+    <h3>th:with</h3>
+    <p>변수 값을 지정하고 싶을 때 사용</p>
+    <p>서버에서 전달받은 withValue 속성의 값을 nickname 이라는 변수에 저장해서 사용 중인 예시</p>
+    <div th:with="nickname=${withValue}" th:text="${nickname} + '님 환영합니다!'"></div>
+
+    <h3>th:href</h3>
+    <!--1. 동적 URL-->
+    <a th:href="@{/{id}(id=${link})}">Link1</a>
+    <!--2. 고적 URL-->
+    <a th:href="@{/hi}">Link2</a>
+    <!--3. 외부 URL-->
+    <a th:href="@{https://www.google.com}">Link3</a>
+
+    <h3>th:src</h3>
+    <p>이미지 요소의 src 속성값을 지정할 때 사용</p>
+    <img th:src="${imgSrc}" alt="이미지">
+
+    <h3>th:switch</h3>
+    <p>switch case 문을 다루고자 할 때 사용, 단 * 는 switch-case 문의 default 를 의미</p>
+    <div th:switch="${userRole}">
+        <p th:case="admin">Hello, Admin</p>
+        <p th:case="user">Hello, User</p>
+        <p th:case="*">Hello, Unknown</p>
+    </div>
+
+    <h3>th:if, th:unless</h3>
+    <div>
+        <p th:if="${isAdmin}">Welcome, Admin</p>
+        <p th:unless="${isAdmin}">Welcome, User</p>
+    </div>
+
+    <h3>th:each</h3>
+    <ul>
+        <!--names 를 반복 돌면서 n 에 이름 각각 저장-->
+        <li th:each="n:${names}" th:text="${n}"></li>
+    </ul>
+
+    <h3>클래스 활용 예제</h3>
+    <div th:text="${person.getName()}"></div>
+    <div th:text="${person.getAge()}"></div>
+</body>
+</html>
