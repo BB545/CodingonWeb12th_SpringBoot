@@ -8,6 +8,8 @@ import codingon_kdt.spring_boot_security.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,15 +26,25 @@ public class UserController {
     @Autowired
     private TokenProvider tokenProvider;
 
+    // [after] 암호화 적용 후
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @PostMapping("/signup")
     // ResponseEntity: 사용자에게 좀 더 응답을 편하게 해주고자 사용
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
-        // 요청으로 받은 DTO 를 userEntity 로 변환 - 다른 계층 타입 일치 위해
         try {
-            UserEntity user = UserEntity.builder()
+            // 요청으로 받은 DTO 를 userEntity 로 변환 - 다른 계층 타입 일치 위해
+            // [before]
+            /* UserEntity user = UserEntity.builder()
                     .email(userDTO.getEmail())
                     .username(userDTO.getUsername())
                     .password(userDTO.getPassword())
+                    .build(); */
+            // [after] 암호화 적용 후
+            UserEntity user = UserEntity.builder()
+                    .email(userDTO.getEmail())
+                    .username(userDTO.getUsername())
+                    .password(passwordEncoder.encode(userDTO.getPassword())) // 암호화된 비번으로 user 객체 생성
                     .build();
 
             // 서비스 계층을 이용해 레포지토리에 저장
@@ -59,7 +71,10 @@ public class UserController {
     @PostMapping("signin")
     public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO) {
         // UserService 계층을 통해 이메일과 비밀번호로 사용자를 조회
-        UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword());
+        // [before]
+        // UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword());
+        // [after] 암호화 적용 후
+        UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword(), passwordEncoder);
 
         if (user != null) {
             // [before]
