@@ -35,7 +35,7 @@ public class WebSecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션을 사용하지 않는 STATELESS
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/auth/**")
+                        .requestMatchers("/", "/auth/**", "/todo/**")
                         .permitAll()
                         .anyRequest().authenticated()); // /, /auth/** 경로는 인증 없이 접근 가능하고, 나머지 요청은 인증 필요
 

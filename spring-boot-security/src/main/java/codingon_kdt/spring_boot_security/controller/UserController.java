@@ -27,7 +27,11 @@ public class UserController {
     private TokenProvider tokenProvider;
 
     // [after] 암호화 적용 후
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    // 직접 객체 생성
+    // private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    // Bean 으로 관리
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
     // ResponseEntity: 사용자에게 좀 더 응답을 편하게 해주고자 사용
